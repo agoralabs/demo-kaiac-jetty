@@ -1,0 +1,4 @@
+JETTY_HOME=/opt/jetty
+JETTY_USER=jetty
+JETTY_ARGS="jetty.host='127.0.0.1' jetty.port=9090"
+JAVA_OPTIONS="-XX:+UseCompressedOops -Dsun.rmi.dgc.client.gcInterval=86400000 -Dsun.rmi.dgc.server.gcInterval=86400000"

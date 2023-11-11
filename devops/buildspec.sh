@@ -32,3 +32,4 @@ appenvsubstr(){
 appenvsubstr devops/appspec.yml.template appspec.yml
 appenvsubstr devops/appspec.sh.template devops/appspec.sh
 chmod 777 devops/appspec.sh
+appenvsubstr devops/default-jetty.j2.template default-jetty.j2
