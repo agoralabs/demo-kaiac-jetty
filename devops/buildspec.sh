@@ -29,7 +29,14 @@ appenvsubstr(){
     | envsubst '$TF_VAR_ENV_APP_GL_AWS_REGION_ECR' > $p_destination
 }
 
+echo "creating appspec.yml"
 appenvsubstr devops/appspec.yml.template appspec.yml
+
+echo "creating devops/appspec.sh"
 appenvsubstr devops/appspec.sh.template devops/appspec.sh
 chmod 777 devops/appspec.sh
+
+echo "creating default-jetty.j2"
 appenvsubstr devops/default-jetty.j2.template default-jetty.j2
+
+ls -lah
