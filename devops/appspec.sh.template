@@ -4,6 +4,25 @@ SCRIPT_MODE="$TF_VAR_ENV_APP_GL_SCRIPT_MODE"
 
 source_folder=$TF_VAR_ENV_APP_BE_LOCAL_SOURCE_FOLDER
 
-sudo cp $source_folder/default-jetty.j2 /etc/default/jetty
+# Stop Jetty
+pkill -f "java -jar $JETTY_HOME/start.jar"
 
-sudo systemctl restart jetty
+# Quick Setup
+export JETTY_HOME=/opt/jetty
+export JETTY_BASE=/opt/jetty-base
+export JETTY_USER=jetty
+#export JETTY_ARGS="jetty.host='127.0.0.1' jetty.port=9090"
+export JAVA_OPTIONS="-XX:+UseCompressedOops -Dsun.rmi.dgc.client.gcInterval=86400000 -Dsun.rmi.dgc.server.gcInterval=86400000"
+
+sudo mkdir $JETTY_BASE
+cd $JETTY_BASE
+sudo java -jar $JETTY_HOME/start.jar --add-module=server,http,deploy
+
+# Deploy Jetty’s demo web applications
+sudo java -jar $JETTY_HOME/start.jar --add-module=demo
+
+# Start the Jetty server
+sudo java -jar $JETTY_HOME/start.jar > /dev/null 2>&1 &
+
+# Point your browser at http://localhost:8080 to see the demo web applications deployed in Jetty.
+
